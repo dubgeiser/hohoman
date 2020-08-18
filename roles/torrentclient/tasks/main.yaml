@@ -1,0 +1,11 @@
+---
+- name: Ensure Transmission daemon is installed
+  package:
+    name: transmission-daemon
+    state: present
+
+- name: Ensure Transmission daemon is running
+  service:
+    name: transmission-daemon
+    enabled: true
+    state: started

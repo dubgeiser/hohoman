@@ -1,0 +1,11 @@
+---
+- name: Ensure Samba is installed
+  package:
+    name: samba
+    state: present
+
+- name: Ensure Samba is running
+  service:
+    name: smbd
+    enabled: true
+    state: started
