@@ -1,5 +1,6 @@
 ---
 - hosts: servers
+  become: true
   roles:
     - torrentclient
     - fileserver
