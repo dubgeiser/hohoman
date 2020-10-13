@@ -1,0 +1,5 @@
+---
+- name: Ensure nmap is installed
+  package:
+    name: nmap
+    state: present
