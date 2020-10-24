@@ -1,0 +1,11 @@
+---
+- name: Ensure Apache is installed
+  package:
+    name: apache2
+    state: present
+
+- name: Ensure Apache is running
+  service:
+    name: apache2
+    enabled: true
+    state: started
