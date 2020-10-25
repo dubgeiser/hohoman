@@ -3,3 +3,23 @@
   package:
     name: nmap
     state: present
+
+- name: Ensure htop is installed
+  package:
+    name: htop
+    state: present
+
+- name: Ensure Vim is installed
+  package:
+    name: vim
+    state: present
+
+- name: Ensure Git is installed
+  package:
+    name: git
+    state: present
+
+- name: Ensure FZF is installed
+  package:
+    name: fzf
+    state: present
