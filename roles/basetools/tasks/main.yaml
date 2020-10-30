@@ -19,6 +19,7 @@
     name: git
     state: present
 
+# TODO: source /usr/share/doc/fzf/examples/key-bindings.bash
 - name: Ensure FZF is installed
   package:
     name: fzf
