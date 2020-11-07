@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+#
+# Script for showing CPU temperature on a Raspberry PI.
+#
+
+cpu=$(</sys/class/thermal/thermal_zone0/temp)
+cpu="$((cpu/1000))"
+echo "CPU: $cpu ºC"

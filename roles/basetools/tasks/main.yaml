@@ -27,3 +27,11 @@
   lineinfile:
     path: /etc/profile
     line: source /usr/share/doc/fzf/examples/key-bindings.bash
+
+- name: Ensure CPU temp script is present
+  copy:
+    src: roles/basetools/files/cputemp
+    dest: /bin/cputemp
+    owner: root
+    group: root
+    mode: '0755'
