@@ -28,6 +28,11 @@
     path: /etc/profile
     line: source /usr/share/doc/fzf/examples/key-bindings.bash
 
+- name: Ensure LC_ALL is set
+  lineinfile:
+    path: /etc/profile
+    line: export LC_ALL="en_US.UTF-8"
+
 - name: Ensure CPU temp script is present
   copy:
     src: roles/basetools/files/cputemp
