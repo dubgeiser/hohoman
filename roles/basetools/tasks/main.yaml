@@ -40,3 +40,8 @@
     owner: root
     group: root
     mode: '0755'
+
+- name: Ensure tree is installed
+  package:
+    name: tree
+    state: present
