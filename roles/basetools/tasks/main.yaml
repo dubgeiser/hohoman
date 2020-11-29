@@ -45,3 +45,13 @@
   package:
     name: tree
     state: present
+
+- name: Ensure Ack-Grep is installed
+  package:
+    name: ack
+    state: present
+
+- name: Ensure Ag, Silver Searcher is installed
+  package:
+    name: silversearcher-ag
+    state: present
