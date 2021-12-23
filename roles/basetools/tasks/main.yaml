@@ -46,12 +46,7 @@
     name: tree
     state: present
 
-- name: Ensure Ack-Grep is installed
+- name: Ensure Ripgrep is installed
   package:
-    name: ack
-    state: present
-
-- name: Ensure Ag, Silver Searcher is installed
-  package:
-    name: silversearcher-ag
+    name: ripgrep
     state: present
