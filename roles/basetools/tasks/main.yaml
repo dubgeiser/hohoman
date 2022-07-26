@@ -9,9 +9,9 @@
     name: htop
     state: present
 
-- name: Ensure Vim is installed
+- name: Ensure Neovim is installed
   package:
-    name: vim
+    name: neovim
     state: present
 
 - name: Ensure Git is installed
