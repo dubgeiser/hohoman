@@ -2,7 +2,11 @@
 - hosts: servers
   become: true
   roles:
-    - basetools
-    - torrentclient
-    - fileserver
-    - webserver
+    - role: basetools
+      tags: basetools
+    - role: torrentclient
+      tags: torrentclient
+    - role: fileserver
+      tags: fileserver
+    - role: webserver
+      tags: webserver
