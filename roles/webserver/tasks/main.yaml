@@ -9,3 +9,8 @@
     name: apache2
     enabled: true
     state: started
+
+- name: Ensure mod_wsgi is installed
+  package:
+    name: libapache2-mod-wsgi-py3
+    state: latest
