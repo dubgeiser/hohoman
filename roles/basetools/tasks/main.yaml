@@ -50,3 +50,12 @@
   package:
     name: ripgrep
     state: latest
+
+- name: Ensure main user has nvim aliased to 'e'
+  lineinfile:
+    path: /home/pi/.bashrc
+    line: "alias e=nvim"
+    owner: pi
+    state: present
+    insertafter: EOF
+    create: True
