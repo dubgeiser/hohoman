@@ -1,0 +1,9 @@
+---
+mounts:
+  - path: "/external/usb3-1"
+    src: "UUID=7b08b7a3-6197-4392-b066-c4df14d6aae7"
+    fstype: "ext4"
+    opts: "defaults"
+    state: "mounted"
+    dump: 0
+    passno: 0

@@ -1,6 +1,22 @@
 ---
 - hosts: servers
   become: true
+
+  vars_files:
+    - vars/mounts.yaml
+
+  pre_tasks:
+    - name: Ensure drives are mounted
+      ansible.posix.mount:
+        path: "{{ item.path }}"
+        src: "{{ item.src }}"
+        fstype: "{{ item.fstype }}"
+        opts: "{{ item.opts }}"
+        state: "{{ item.state }}"
+        dump:  "{{ item.dump }}"
+        passno:  "{{ item.passno }}"
+      loop: "{{ mounts }}"
+
   roles:
     - role: basetools
       tags: basetools
