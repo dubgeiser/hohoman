@@ -2,7 +2,7 @@
 - name: Ensure Samba is installed
   package:
     name: samba
-    state: present
+    state: latest
 
 - name: Ensure Samba is running
   service:

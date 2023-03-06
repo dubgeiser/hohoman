@@ -2,7 +2,7 @@
 - name: Ensure Apache is installed
   package:
     name: apache2
-    state: present
+    state: latest
 
 - name: Ensure Apache is running
   service:

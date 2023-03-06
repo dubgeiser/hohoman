@@ -2,27 +2,27 @@
 - name: Ensure nmap is installed
   package:
     name: nmap
-    state: present
+    state: latest
 
 - name: Ensure htop is installed
   package:
     name: htop
-    state: present
+    state: latest
 
 - name: Ensure Neovim is installed
   package:
     name: neovim
-    state: present
+    state: latest
 
 - name: Ensure Git is installed
   package:
     name: git
-    state: present
+    state: latest
 
 - name: Ensure FZF is installed
   package:
     name: fzf
-    state: present
+    state: latest
 - name: Ensure FZF keybindings are activated
   lineinfile:
     path: /etc/profile
@@ -44,9 +44,9 @@
 - name: Ensure tree is installed
   package:
     name: tree
-    state: present
+    state: latest
 
 - name: Ensure Ripgrep is installed
   package:
     name: ripgrep
-    state: present
+    state: latest

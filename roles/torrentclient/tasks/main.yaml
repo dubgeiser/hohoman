@@ -2,7 +2,7 @@
 - name: Ensure Transmission daemon is installed
   package:
     name: transmission-daemon
-    state: present
+    state: latest
 
 - name: Ensure Transmission daemon is running
   service:
