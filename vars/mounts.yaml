@@ -7,3 +7,11 @@ mounts:
     state: "mounted"
     dump: 0
     passno: 0
+
+  - path: "/external/usb2-1"
+    src: "UUID=b7e10fac-6595-473a-be6c-a72f18d8c4f8"
+    fstype: "ext4"
+    opts: "defaults"
+    state: "mounted"
+    dump: 0
+    passno: 0
