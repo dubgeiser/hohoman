@@ -14,8 +14,8 @@
         fstype: "{{ item.fstype }}"
         opts: "{{ item.opts }}"
         state: "{{ item.state }}"
-        dump:  "{{ item.dump }}"
-        passno:  "{{ item.passno }}"
+        dump: "{{ item.dump }}"
+        passno: "{{ item.passno }}"
       loop: "{{ mounts }}"
 
   roles:
