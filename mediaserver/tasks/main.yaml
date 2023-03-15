@@ -1,0 +1,11 @@
+---
+- name: Ensure minidlna is installed
+  package:
+    name: minidlna
+    state: latest
+
+- name: Ensure minidlna is running
+  service:
+    name: minidlna
+    enabled: true
+    state: started

@@ -27,3 +27,5 @@
       tags: fileserver
     - role: webserver
       tags: webserver
+    - role: mediaserver
+      tags: mediaserver
