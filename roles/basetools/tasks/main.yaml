@@ -59,3 +59,8 @@
     state: present
     insertafter: EOF
     create: True
+
+- name: Ensure terminfo for Kitty is installed
+  package:
+    name: kitty-terminfo
+    state: latest
