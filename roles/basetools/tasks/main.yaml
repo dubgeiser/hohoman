@@ -33,14 +33,6 @@
     path: /etc/profile
     line: export LC_ALL="en_US.UTF-8"
 
-- name: Ensure CPU temp script is present
-  copy:
-    src: roles/basetools/files/cputemp
-    dest: /bin/cputemp
-    owner: root
-    group: root
-    mode: '0755'
-
 - name: Ensure tree is installed
   package:
     name: tree
