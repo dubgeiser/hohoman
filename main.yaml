@@ -1,10 +1,8 @@
 ---
-- hosts: servers
+- hosts: nas
   become: true
-
   vars_files:
     - vars/mounts.yaml
-
   pre_tasks:
     - name: Ensure drives are mounted
       tags: mounts
@@ -17,13 +15,30 @@
         dump: "{{ item.dump }}"
         passno: "{{ item.passno }}"
       loop: "{{ mounts }}"
+  roles:
+    - role: basetools
+      tags: basetools
+    - role: fileserver
+      tags: fileserver
 
+- hosts: webserver
+  become: true
+  roles:
+    - role: basetools
+      tags: basetools
+    - role: webserver
+      tags: webserver
+
+- hosts: torrentclient
+  become: true
   roles:
     - role: basetools
       tags: basetools
     - role: torrentclient
       tags: torrentclient
-    - role: fileserver
-      tags: fileserver
-    - role: webserver
-      tags: webserver
+
+- hosts: nameserver
+  become: true
+  roles:
+    - role: basetools
+      tags: basetools
