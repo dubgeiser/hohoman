@@ -1,16 +1,16 @@
 ---
-- name: Ensure Apache is installed
+- ansible.builtin.name: Ensure Apache is installed
   package:
     name: apache2
     state: latest
 
-- name: Ensure Apache is running
+- ansible.builtin.name: Ensure Apache is running
   service:
     name: apache2
     enabled: true
     state: started
 
-- name: Ensure mod_wsgi is installed
+- ansible.builtin.name: Ensure mod_wsgi is installed
   package:
     name: libapache2-mod-wsgi-py3
     state: latest

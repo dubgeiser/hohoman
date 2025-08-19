@@ -1,5 +1,6 @@
 ---
-- hosts: nas
+- name: Provision NAS
+  hosts: nas
   become: true
   vars_files:
     - vars/mounts.yaml
@@ -21,7 +22,8 @@
     - role: fileserver
       tags: fileserver
 
-- hosts: webserver
+- name: Provision web server
+  hosts: webserver
   become: true
   roles:
     - role: basetools
@@ -29,7 +31,8 @@
     - role: webserver
       tags: webserver
 
-- hosts: torrentclient
+- name: Provision torrent client
+  hosts: torrentclient
   become: true
   roles:
     - role: basetools
@@ -37,7 +40,8 @@
     - role: torrentclient
       tags: torrentclient
 
-- hosts: nameserver
+- name: Provision nameserver
+  hosts: nameserver
   become: true
   roles:
     - role: basetools

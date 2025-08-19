@@ -1,49 +1,49 @@
 ---
-- name: Ensure nmap is installed
+- ansible.builtin.name: Ensure nmap is installed
   package:
     name: nmap
     state: latest
 
-- name: Ensure htop is installed
+- ansible.builtin.name: Ensure htop is installed
   package:
     name: htop
     state: latest
 
-- name: Ensure Neovim is installed
+- ansible.builtin.name: Ensure Neovim is installed
   package:
     name: neovim
     state: latest
 
-- name: Ensure Git is installed
+- ansible.builtin.name: Ensure Git is installed
   package:
     name: git
     state: latest
 
-- name: Ensure FZF is installed
+- ansible.builtin.name: Ensure FZF is installed
   package:
     name: fzf
     state: latest
-- name: Ensure FZF keybindings are activated
+- ansible.builtin.name: Ensure FZF keybindings are activated
   lineinfile:
     path: /etc/profile
     line: source /usr/share/doc/fzf/examples/key-bindings.bash
 
-- name: Ensure LC_ALL is set
+- ansible.builtin.name: Ensure LC_ALL is set
   lineinfile:
     path: /etc/profile
     line: export LC_ALL="en_US.UTF-8"
 
-- name: Ensure tree is installed
+- ansible.builtin.name: Ensure tree is installed
   package:
     name: tree
     state: latest
 
-- name: Ensure Ripgrep is installed
+- ansible.builtin.name: Ensure Ripgrep is installed
   package:
     name: ripgrep
     state: latest
 
-- name: Ensure main user has nvim aliased to 'e'
+- ansible.builtin.name: Ensure main user has nvim aliased to 'e'
   lineinfile:
     path: /home/pi/.bashrc
     line: "alias e=nvim"
@@ -52,7 +52,7 @@
     insertafter: EOF
     create: True
 
-- name: Ensure terminfo for Kitty is installed
+- ansible.builtin.name: Ensure terminfo for Kitty is installed
   package:
     name: kitty-terminfo
     state: latest
