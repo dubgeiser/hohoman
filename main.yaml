@@ -16,6 +16,13 @@
         dump: "{{ item.dump }}"
         passno: "{{ item.passno }}"
       loop: "{{ mounts }}"
+    - name: Set facts for Jellyfin dirs
+      set_fact:
+        jellyfin_media_dir: "{{ mount_paths['media'] }}"
+        jellyfin_cache_dir: "{{ mount_paths['cache'] }}"
+  vars:
+    jellyfin_repo_key_url: "https://repo.jellyfin.org/debian/jellyfin_team.gpg.key"
+    jellyfin_repo_url: "https://repo.jellyfin.org/debian"
   roles:
     - role: basetools
       tags: basetools
@@ -25,3 +32,5 @@
       tags: webserver
     - role: torrentclient
       tags: torrentclient
+    - role: mediaserver
+      tags: mediaserver

@@ -1,6 +1,10 @@
 ---
+mount_paths:
+  media: /external/usb3-1
+  cache: /external/usb2-1
+
 mounts:
-  - path: "/external/usb3-1"
+  - path: "{{ mount_paths['media'] }}"
     src: "UUID=7b08b7a3-6197-4392-b066-c4df14d6aae7"
     fstype: "ext4"
     opts: "defaults"
@@ -8,7 +12,7 @@ mounts:
     dump: 0
     passno: 0
 
-  - path: "/external/usb2-1"
+  - path: "{{ mount_paths['cache'] }}"
     src: "UUID=b7e10fac-6595-473a-be6c-a72f18d8c4f8"
     fstype: "ext4"
     opts: "defaults"

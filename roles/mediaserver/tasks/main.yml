@@ -1,0 +1,58 @@
+---
+- name: Ensure dependencies are installed
+  apt:
+    name:
+      - apt-transport-https
+      - gnupg
+      - software-properties-common
+    state: present
+    update_cache: true
+
+- name: Add Jellyfin repository GPG key
+  ansible.builtin.get_url:
+    url: "{{ jellyfin_repo_key_url }}"
+    dest: /usr/share/keyrings/jellyfin.gpg
+    mode: '0644'
+
+- name: Add Jellyfin repository
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/jellyfin.gpg arch=armhf,arm64,amd64] {{ jellyfin_repo_url }} bullseye main"
+    state: present
+
+- name: Install Jellyfin
+  apt:
+    name: jellyfin
+    state: present
+    update_cache: true
+
+- name: Ensure cache directory exists
+  file:
+    path: "{{ jellyfin_cache_dir }}/jellyfin"
+    state: directory
+    owner: jellyfin
+    group: jellyfin
+    mode: '0755'
+
+- name: Stop Jellyfin before reconfiguring
+  service:
+    name: jellyfin
+    state: stopped
+
+- name: Update Jellyfin systemd service to use external cache directory
+  lineinfile:
+    path: /etc/systemd/system/jellyfin.service.d/override.conf
+    create: true
+    mode: '0644'
+    regexp: '^Environment=JELLYFIN_CACHE_DIR='
+    line: "Environment=JELLYFIN_CACHE_DIR={{ jellyfin_cache_dir }}"
+  notify: Reload systemd
+
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: true
+
+- name: Start Jellyfin
+  service:
+    name: jellyfin
+    state: started
+    enabled: true
