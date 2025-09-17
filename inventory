@@ -1,11 +1,2 @@
 [nas]
 raspberrypi4b-0
-
-[torrentclient]
-raspberrypi4b-0
-
-[webserver]
-raspberrypi4b-0
-
-[nameserver]
-raspberrypi3bp-0

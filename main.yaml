@@ -21,28 +21,7 @@
       tags: basetools
     - role: fileserver
       tags: fileserver
-
-- name: Provision web server
-  hosts: webserver
-  become: true
-  roles:
-    - role: basetools
-      tags: basetools
     - role: webserver
       tags: webserver
-
-- name: Provision torrent client
-  hosts: torrentclient
-  become: true
-  roles:
-    - role: basetools
-      tags: basetools
     - role: torrentclient
       tags: torrentclient
-
-- name: Provision nameserver
-  hosts: nameserver
-  become: true
-  roles:
-    - role: basetools
-      tags: basetools
