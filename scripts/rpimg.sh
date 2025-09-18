@@ -11,7 +11,7 @@
 
 # --[ Config ]--
 IMG_URL="https://downloads.raspberrypi.com/raspios_lite_arm64/images/raspios_lite_arm64-2025-05-13/2025-05-13-raspios-bookworm-arm64-lite.img.xz"
-SD_DEVICE="/dev/sdX"
+SD_DEVICE="/dev/mmcblk0"
 # --[ /Config]--
 
 set -euo pipefail
@@ -35,7 +35,7 @@ sync
 echo "Image written to SD card."
 
 # Assumes boot partition is the first partition of the SD card
-BOOT_PART="${SD_DEVICE}1"
+BOOT_PART="${SD_DEVICE}p1"
 
 MNTDIR=$(mktemp -d)
 echo "Mounting boot partition $BOOT_PART to $MNTDIR"
