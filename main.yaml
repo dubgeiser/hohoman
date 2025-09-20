@@ -27,7 +27,7 @@
           - name: "Scans"
             path: "{{ mount_paths['media'] }}/scans"
             comment: "Scans from network attached scanner"
-            valid_users: "@users"
+            valid_users: "per,scanner"
             browseable: "yes"
             public: "no"
             guest_ok: "yes"
