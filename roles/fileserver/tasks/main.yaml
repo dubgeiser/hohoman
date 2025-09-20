@@ -4,8 +4,10 @@
     name: samba
     state: present
 
-- name: Ensure Samba is running
-  service:
-    name: smbd
-    enabled: true
-    state: started
+- name: Samba configuration
+  ansible.builtin.template:
+    src: smb.conf.j2
+    dest: "{{ samba_config }}"
+    validate: "testparm -s %s"
+    mode: '0644'
+  notify: Restart Samba

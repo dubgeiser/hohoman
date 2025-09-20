@@ -1,0 +1,65 @@
+[global]
+   workgroup = DUBGEISER
+   log file = /var/log/samba/log.%m
+   max log size = 1000
+   logging = file
+   panic action = /usr/share/samba/panic-action %d
+   server role = standalone server
+   obey pam restrictions = yes
+   unix password sync = yes
+   passwd program = /usr/bin/passwd %u
+   passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
+   pam password change = yes
+   map to guest = bad user
+   usershare allow guests = no
+
+[homes]
+   comment = Home Directories
+   browseable = no
+   read only = yes
+   create mask = 0700
+   directory mask = 0700
+
+   # By default, \\server\username shares can be connected to by anyone
+   # with access to the samba server.
+   # The following parameter makes sure that only "username" can connect
+   # to \\server\username
+   # This might need tweaking when using external authentication schemes
+   valid users = %S
+
+[printers]
+   comment = All Printers
+   browseable = no
+   path = /var/tmp
+   printable = yes
+   guest ok = no
+   read only = yes
+   create mask = 0700
+
+# --[ Shares ]--
+{% for share in samba_shares %}
+[{{ share.name }}]
+{% if share.comment is defined %}
+   comment = {{ share.comment }}
+{% endif %}
+   path = {{ share.path }}
+{% if share.valid_users is defined %}
+   valid users = {{ share.valid_users }}
+{% endif %}
+{% if share.browseable is defined %}
+   browseable = {{ share.browseable }}
+{% else %}
+   browseable = no
+{% endif %}
+   public = no
+{% if share.writeable is defined %}
+   writeable = {{ share.writeable }}
+{% else %}
+   writeable = no
+{% endif %}
+{% if share.guest_ok is defined %}
+   guest ok = {{ share.guest_ok }}
+{% else %}
+   guest ok = no
+{% endif %}
+{% endfor %}
