@@ -11,3 +11,9 @@
     validate: "testparm -s %s"
     mode: '0644'
   notify: Restart Samba
+
+- name: Serve scans via Apache
+  ansible.builtin.file:
+    src: "{{ mount_paths['media'] }}/scans"
+    dest: /var/www/html/scans
+    state: link
