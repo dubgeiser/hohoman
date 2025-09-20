@@ -1,10 +1,10 @@
 ---
-- ansible.builtin.name: Ensure Samba is installed
+- name: Ensure Samba is installed
   package:
     name: samba
-    state: latest
+    state: present
 
-- ansible.builtin.name: Ensure Samba is running
+- name: Ensure Samba is running
   service:
     name: smbd
     enabled: true

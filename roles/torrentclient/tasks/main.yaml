@@ -1,10 +1,10 @@
 ---
-- ansible.builtin.name: Ensure Transmission daemon is installed
+- name: Ensure Transmission daemon is installed
   package:
     name: transmission-daemon
     state: latest
 
-- ansible.builtin.name: Ensure Transmission daemon is running
+- name: Ensure Transmission daemon is running
   service:
     name: transmission-daemon
     enabled: true
