@@ -78,10 +78,12 @@
       tags: webserver
     - role: torrentclient
       tags: torrentclient
-    # - role: mediaserver
-    #   tags: mediaserver
-    #   vars:
-    #     jellyfin_media_dir: "{{ mount_paths['media'] }}"
-    #     jellyfin_cache_dir: "{{ mount_paths['cache'] }}"
-    #     jellyfin_repo_key_url: "https://repo.jellyfin.org/debian/jellyfin_team.gpg.key"
-    #     jellyfin_repo_url: "https://repo.jellyfin.org/debian"
+    - role: mediaserver
+      tags: mediaserver
+      vars:
+        jellyfin_dir: "{{ mount_paths['data'] }}/jellyfin"
+        jellyfin_media_dir: "{{ mount_paths['media'] }}"
+        jellyfin_repo_key_url: "https://repo.jellyfin.org/debian/jellyfin_team.gpg.key"
+        # Yeah, we actually shouldn't, but I want my MTV
+        jellyfin_repo_key_dest: "/etc/apt/trusted.gpg.d/jellyfin.asc"
+        jellyfin_repo_url: "https://repo.jellyfin.org/debian"

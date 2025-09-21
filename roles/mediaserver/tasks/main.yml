@@ -11,13 +11,18 @@
 - name: Add Jellyfin repository GPG key
   ansible.builtin.get_url:
     url: "{{ jellyfin_repo_key_url }}"
-    dest: /usr/share/keyrings/jellyfin.gpg
+    dest: "{{ jellyfin_repo_key_dest }}"
     mode: '0644'
 
 - name: Add Jellyfin repository
   apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/jellyfin.gpg arch=armhf,arm64,amd64] {{ jellyfin_repo_url }} bullseye main"
+    # NOTE: arch=arm64 hardcoded is necessary:
+    # `ansible_facts.architecture` returns `aarch64` instead of `arm64`,
+    # which _should_ be synonymously, but probably not when some string
+    # matching is involved :-)
+    repo: "deb [signed-by={{ jellyfin_repo_key_dest }} arch=arm64] {{ jellyfin_repo_url }} {{ ansible_facts.distribution_release }} main"
     state: present
+    update_cache: true
 
 - name: Install Jellyfin
   apt:
@@ -25,9 +30,9 @@
     state: present
     update_cache: true
 
-- name: Ensure cache directory exists
+- name: Ensure Jellyfin directory exists
   file:
-    path: "{{ jellyfin_cache_dir }}/jellyfin"
+    path: "{{ jellyfin_dir }}"
     state: directory
     owner: jellyfin
     group: jellyfin
@@ -38,21 +43,21 @@
     name: jellyfin
     state: stopped
 
-- name: Update Jellyfin systemd service to use external cache directory
-  lineinfile:
-    path: /etc/systemd/system/jellyfin.service.d/override.conf
-    create: true
-    mode: '0644'
-    regexp: '^Environment=JELLYFIN_CACHE_DIR='
-    line: "Environment=JELLYFIN_CACHE_DIR={{ jellyfin_cache_dir }}"
-  notify: Reload systemd
-
-- name: Reload systemd daemon
-  systemd:
-    daemon_reload: true
-
-- name: Start Jellyfin
-  service:
-    name: jellyfin
-    state: started
-    enabled: true
+# - TODO THIS NOT RIGHT name: Update Jellyfin systemd service to use external cache directory
+#   lineinfile:
+#     path: /etc/systemd/system/jellyfin.service.d/override.conf
+#     create: true
+#     mode: '0644'
+#     regexp: '^Environment=JELLYFIN_CACHE_DIR='
+#     line: "Environment=JELLYFIN_CACHE_DIR={{ jellyfin_dir }}"
+#   notify: Reload systemd
+#
+# - name: Reload systemd daemon
+#   systemd:
+#     daemon_reload: true
+#
+# - name: Start Jellyfin
+#   service:
+#     name: jellyfin
+#     state: started
+#     enabled: true
