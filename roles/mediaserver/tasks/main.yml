@@ -30,6 +30,11 @@
     state: present
     update_cache: true
 
+- name: Stop Jellyfin before reconfiguring
+  service:
+    name: jellyfin
+    state: stopped
+
 - name: Ensure Jellyfin directory exists
   file:
     path: "{{ jellyfin_dir }}"
@@ -37,27 +42,18 @@
     owner: jellyfin
     group: jellyfin
     mode: '0755'
+    recurse: true
 
-- name: Stop Jellyfin before reconfiguring
+- name: Ensure Jellyfin data directory is configured
+  lineinfile:
+    path: /etc/default/jellyfin
+    create: true
+    mode: '0644'
+    regexp: '^JELLYFIN_DATA_DIR='
+    line: "JELLYFIN_DATA_DIR={{ jellyfin_dir }}"
+
+- name: Start Jellyfin
   service:
     name: jellyfin
-    state: stopped
-
-# - TODO THIS NOT RIGHT name: Update Jellyfin systemd service to use external cache directory
-#   lineinfile:
-#     path: /etc/systemd/system/jellyfin.service.d/override.conf
-#     create: true
-#     mode: '0644'
-#     regexp: '^Environment=JELLYFIN_CACHE_DIR='
-#     line: "Environment=JELLYFIN_CACHE_DIR={{ jellyfin_dir }}"
-#   notify: Reload systemd
-#
-# - name: Reload systemd daemon
-#   systemd:
-#     daemon_reload: true
-#
-# - name: Start Jellyfin
-#   service:
-#     name: jellyfin
-#     state: started
-#     enabled: true
+    state: started
+    enabled: true
