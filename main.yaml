@@ -78,6 +78,9 @@
       tags: webserver
     - role: torrentclient
       tags: torrentclient
+      vars:
+        transmission_dir_download: "{{ mount_paths['media'] }}/torrents/completed"
+        transmission_dir_incomplete: "{{ mount_paths['media'] }}/torrents/inprogress"
     - role: mediaserver
       tags: mediaserver
       vars:

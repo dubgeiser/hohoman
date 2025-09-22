@@ -2,9 +2,54 @@
 - name: Ensure Transmission daemon is installed
   package:
     name: transmission-daemon
-    state: latest
+    state: present
 
-- name: Ensure Transmission daemon is running
+- name: Stop Transmission daemon before changing config
+  service:
+    name: transmission-daemon
+    state: stopped
+
+- name: Ensure Transmission download directory exists
+  file:
+    path: "{{ transmission_dir_download }}"
+    state: directory
+    owner: debian-transmission
+    group: debian-transmission
+    mode: '0755'
+
+- name: Config Transmission download directory
+  ansible.builtin.lineinfile:
+    path: /etc/transmission-daemon/settings.json
+    create: true
+    mode: '0644'
+    regexp: '^\s+"download-dir"\s{0,}:'
+    line: '    "download-dir": "{{ transmission_dir_download }}",'
+
+- name: Ensure Transmission incomplete download directory exists
+  file:
+    path: "{{ transmission_dir_incomplete }}"
+    state: directory
+    owner: debian-transmission
+    group: debian-transmission
+    mode: '0755'
+
+- name: Config Transmission incomplete directory
+  ansible.builtin.lineinfile:
+    path: /etc/transmission-daemon/settings.json
+    create: true
+    mode: '0644'
+    regexp: '^\s+"incomplete-dir"\s{0,}:'
+    line: '    "incomplete-dir": "{{ transmission_dir_incomplete }}",'
+
+- name: Config Transmission incomplete directory
+  ansible.builtin.lineinfile:
+    path: /etc/transmission-daemon/settings.json
+    create: true
+    mode: '0644'
+    regexp: '^\s+"incomplete-dir-enabled"\s{0,}:'
+    line: '    "incomplete-dir-enabled": true,'
+
+- name: Restart Transmission
   service:
     name: transmission-daemon
     enabled: true
