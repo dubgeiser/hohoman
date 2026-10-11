@@ -1,0 +1,17 @@
+root = true
+
+[*.{j2,yaml,html}]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.conf.j2]
+indent_size = 4
+
+[*.yaml]
+indent_size = 2
+
+[*.html]
+indent_size = 2
