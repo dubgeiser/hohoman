@@ -17,3 +17,20 @@
     src: "{{ mount_paths['media'] }}/scans"
     dest: /var/www/html/scans
     state: link
+
+- name: Ensure crontab entry to archive scans older than a month
+  tags: cron
+  ansible.builtin.cron:
+    name: "Archive scans older than a month"
+    minute: "0"
+    hour: "0"
+    job: "find {{ mount_paths['media'] }}/scans -maxdepth 1 -type f -mtime +30 -exec mv -t {{ mount_paths['media'] }}/scans/Archive/ -- {} +"
+
+- name: Ensure crontab entry to remove scans older than a year
+  tags: cron
+  ansible.builtin.cron:
+    name: "Remove scans older than a year"
+    minute: "0"
+    hour: "0"
+    month: "1"
+    job: "find {{ mount_paths['media'] }}/scans/Archive -maxdepth 1 -type f -mtime +365 -exec rm {} +"
