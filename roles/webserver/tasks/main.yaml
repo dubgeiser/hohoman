@@ -26,9 +26,4 @@
     src: "{{ paths['webserver_conf'] }}/sites-available/{{ domains['home'] }}"
     dest: "{{ paths['webserver_conf'] }}/sites-enabled/{{ domains['home'] }}"
     state: link
-
-- name: Ensure Nginx is running
-  ansible.builtin.service:
-    name: nginx
-    enabled: true
-    state: started
+  notify: Restart Nginx
