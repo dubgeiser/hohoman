@@ -6,3 +6,4 @@ paths:
 domains:
   home: "home.dubgeiser.net"
   media: "media.dubgeiser.net"
+  torrentclient: "transmission.home.dubgeiser.net"
