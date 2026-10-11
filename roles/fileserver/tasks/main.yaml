@@ -1,6 +1,6 @@
 ---
 - name: Ensure Samba is installed
-  package:
+  ansible.builtin.package:
     name: samba
     state: present
 
