@@ -3,6 +3,7 @@
   hosts: nas
   become: true
   vars_files:
+    - vars/base.yaml
     - vars/mounts.yaml
   pre_tasks:
     - name: Ensure drives are mounted

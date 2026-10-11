@@ -1,16 +1,34 @@
 ---
-- name: Ensure Apache is installed
-  ansible.builtin.package:
-    name: apache2
-    state: present
-
-- name: Ensure Apache is running
+- name: Ensure Apache is not running
   ansible.builtin.service:
     name: apache2
+    state: stopped
+
+- name: Ensure Nginx is installed
+  ansible.builtin.package:
+    name: nginx
+    state: present
+
+- name: Ensure nginx.conf for landing site
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: "{{ paths['webserver_conf'] }}/sites-available/{{ domains['home'] }}"
+    owner: root
+    group: root
+
+- name: Ensure Nginx package default site config is deactivated
+  ansible.builtin.file:
+    path: "{{ paths['webserver_conf'] }}/sites-enabled/default"
+    state: absent
+
+- name: Ensure landing site is active
+  ansible.builtin.file:
+    src: "{{ paths['webserver_conf'] }}/sites-available/{{ domains['home'] }}"
+    dest: "{{ paths['webserver_conf'] }}/sites-enabled/{{ domains['home'] }}"
+    state: link
+
+- name: Ensure Nginx is running
+  ansible.builtin.service:
+    name: nginx
     enabled: true
     state: started
-
-- name: Ensure mod_wsgi is installed
-  ansible.builtin.package:
-    name: libapache2-mod-wsgi-py3
-    state: present

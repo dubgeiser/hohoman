@@ -1,0 +1,8 @@
+---
+paths:
+  webserver_root: /var/www/html
+  webserver_conf: /etc/nginx
+
+domains:
+  home: "home.dubgeiser.net"
+  media: "jellyfin.home.dubgeiser.net"

@@ -1,0 +1,10 @@
+server {
+    listen      80;
+    server_name {{ domains['home'] }},{{ domains['media'] }};
+    root {{ paths['webserver_root'] }};
+    location / {
+        index index.html;
+        disable_symlinks off;
+        autoindex on;
+    }
+}
